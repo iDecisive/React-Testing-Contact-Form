@@ -1,7 +1,43 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import * as rtl from "@testing-library/react";
 import App from "./App";
 
-test("renders App without crashing", () => {
-  render(<App />);
+test('renders App without crashing', () => {
+  rtl.render(<App />);
+});
+
+test('Form submit displays its values', () => {
+
+  //Arrange
+  rtl.render(<App />);
+
+  //Act
+
+  const fn = rtl.screen.getByLabelText(/First Name/i);
+  const ln = rtl.screen.getByLabelText(/Last Name/i);
+  const email = rtl.screen.getByLabelText(/Email/i);
+  const message = rtl.screen.getByLabelText(/Message/i);
+
+  rtl.fireEvent.change(fn, { target: { value: 'Ana' } });
+  rtl.fireEvent.change(ln, { target: { value: 'Guevara' } });
+  rtl.fireEvent.change(email, { target: { value: 'something@gmail.com' } });
+  rtl.fireEvent.change(message, { target: { value: 'some message here' } });
+
+  const submit = rtl.screen.getByTestId(/submit/i);
+
+  rtl.fireEvent.click(submit)
+
+  //Assert
+
+  
+
+  rtl.act(() => {
+
+    const newData = rtl.screen.getByText(/Ana/i);
+
+    rtl.expect(newData).toBeInTheDocument();
+
+  })
+  
+
 });
