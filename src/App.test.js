@@ -17,27 +17,28 @@ test('Form submit displays its values', () => {
   const ln = rtl.screen.getByLabelText(/Last Name/i);
   const email = rtl.screen.getByLabelText(/Email/i);
   const message = rtl.screen.getByLabelText(/Message/i);
-
-  rtl.fireEvent.change(fn, { target: { value: 'Ana' } });
-  rtl.fireEvent.change(ln, { target: { value: 'Guevara' } });
-  rtl.fireEvent.change(email, { target: { value: 'something@gmail.com' } });
-  rtl.fireEvent.change(message, { target: { value: 'some message here' } });
-
   const submit = rtl.screen.getByTestId(/submit/i);
-
-  rtl.fireEvent.click(submit)
-
-  //Assert
-
-  
 
   rtl.act(() => {
 
-    const newData = rtl.screen.getByText(/Ana/i);
+    rtl.fireEvent.change(fn, { target: { value: 'Ana' } });
+    rtl.fireEvent.change(ln, { target: { value: 'Guevara' } });
+    rtl.fireEvent.change(email, { target: { value: 'something@gmail.com' } });
+    rtl.fireEvent.change(message, { target: { value: 'some message here' } });
 
-    rtl.expect(newData).toBeInTheDocument();
+  });
 
-  })
+
+  rtl.fireEvent.click(submit)
+
+  //const data = rtl.screen.getByTestId('displayed-data');
+
+
+
+
   
+  //Assert
 
+
+  
 });
